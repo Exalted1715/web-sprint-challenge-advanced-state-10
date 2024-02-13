@@ -14,11 +14,17 @@ function Wheel(props) {
         <div className="cog" style={{ "--i": 5 }}>G</div>{/* --i is a custom CSS property, no need to touch that nor the style object */}
       </div>
       <div id="keypad">
-        <button onClick={props.moveCounterClockwise} id="counterClockwiseBtn" >Counter clockwise</button>
-        <button onClick={props.moveClockwise} id="clockwiseBtn">Clockwise</button>
+      <button onClick={() => {
+          console.log('Move Counter Clockwise Clicked');
+          props.moveCounterClockwise();
+        }} id="counterClockwiseBtn">Counter clockwise</button>
+        <button onClick={() => {
+          console.log('Move Clockwise Clicked');
+          props.moveClockwise();
+        }} id="clockwiseBtn">Clockwise</button>
       </div>
     </div>
-  )
+  );
 }
 
 const mapStateToProps = (state) => ({

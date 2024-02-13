@@ -21,7 +21,7 @@ function wheel(state = initialWheelState, action) {
         ...state,
         cogs: state.cogs.map((cog, index) => ({
           ...cog,
-          active: index === state.cogs.length - 1 ? true : false // Set only the last cog as active
+          active: index === (state.cogs.length - 1) ? true : false // Set only the last cog as active
         }))
       };
     case MOVE_COUNTERCLOCKWISE:
