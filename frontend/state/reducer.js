@@ -1,7 +1,5 @@
-// ❗ You don't need to add extra reducers to achieve MVP
-import { combineReducers } from 'redux'
-import { MOVE_CLOCKWISE, MOVE_COUNTERCLOCKWISE } from './action-types'
-import {connect} from 'react-redux'
+import { combineReducers } from 'redux';
+import { MOVE_CLOCKWISE, MOVE_COUNTERCLOCKWISE } from './action-types';
 
 const initialWheelState = {
   cogs: [
@@ -19,22 +17,37 @@ function wheel(state = initialWheelState, action) {
     case MOVE_CLOCKWISE:
       return {
         ...state,
-        cogs: state.cogs.map((cog, index) => ({
-          ...cog,
-          active: index === (state.cogs.length - 1) ? true : false // Set only the last cog as active
-        }))
+        cogs: rotateCogsClockwise(state.cogs)
       };
     case MOVE_COUNTERCLOCKWISE:
       return {
         ...state,
-        cogs: state.cogs.map((cog, index) => ({
-          ...cog,
-          active: index === 0 ? true : false // Set only the first cog as active
-        }))
+        cogs: rotateCogsCounterClockwise(state.cogs)
       };
     default:
       return state;
   }
+}
+
+function rotateCogsClockwise(cogs) {
+  const activeIndex = cogs.findIndex(cog => cog.active);
+  const nextIndex = (activeIndex + 1) % cogs.length;
+  const updatedCogs = cogs.map((cog, index) => ({
+    ...cog,
+    active: index === nextIndex
+  }));
+  return updatedCogs;
+}
+
+// Helper function to rotate cogs counterclockwise
+function rotateCogsCounterClockwise(cogs) {
+  const activeIndex = cogs.findIndex(cog => cog.active);
+  const prevIndex = (activeIndex - 1 + cogs.length) % cogs.length;
+  const updatedCogs = cogs.map((cog, index) => ({
+    ...cog,
+    active: index === prevIndex
+  }));
+  return updatedCogs;
 }
 
 const initialQuizState = null
