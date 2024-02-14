@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { MOVE_CLOCKWISE, MOVE_COUNTERCLOCKWISE } from './action-types';
+import { MOVE_CLOCKWISE, MOVE_COUNTERCLOCKWISE, SET_QUIZ_INTO_STATE } from './action-types';
 
 const initialWheelState = {
   cogs: [
@@ -50,9 +50,18 @@ function rotateCogsCounterClockwise(cogs) {
   return updatedCogs;
 }
 
-const initialQuizState = null
+const initialQuizState = {
+  question: '',
+  answers: [],
+};
+
 function quiz(state = initialQuizState, action) {
-  return state
+  switch (action.type) {
+    case SET_QUIZ_INTO_STATE:
+      return { ...state, ...action.payload };
+    default:
+      return state;
+  }
 }
 
 const initialSelectedAnswerState = null

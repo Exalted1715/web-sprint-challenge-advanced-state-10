@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { fetchQuiz } from '../state/action-creators';
+import { fetchQuiz, setSelectedAnswer, } from '../state/action-creators';
 
 function Quiz(props) {
   useEffect(() => {
@@ -31,6 +31,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = {
   fetchQuiz,
+  setSelectedAnswer,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Quiz);
