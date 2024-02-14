@@ -11,14 +11,21 @@ function Quiz(props) {
     <div id="wrapper">
       <h2>{props.quiz.question}</h2>
       <div id="quizAnswers">
-        {props.quiz.answers &&
-          props.quiz.answers.map((answer, index) => (
-            <div className={`answer ${props.selectedAnswer === answer ? 'selected' : ''}`} key={index}>
-              {answer}
-              <button onClick={() => props.setSelectedAnswer(answer)}>Select</button>
-            </div>
-          ))}
+  {props.quiz.answers &&
+    props.quiz.answers.map((answer, index) => (
+      <div
+        className={`answer ${
+          props.selectedAnswer === answer.answer_id ? 'selected' : ''
+        }`}
+        key={index}
+      >
+        {answer.text} {/* Render the text property of the answer object */}
+        <button onClick={() => props.setSelectedAnswer(answer.answer_id)}>
+          Select
+        </button>
       </div>
+    ))}
+</div>
       <button id="submitAnswerBtn">Submit answer</button>
     </div>
   );
