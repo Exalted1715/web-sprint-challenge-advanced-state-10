@@ -58,8 +58,6 @@ export function fetchQuiz() {
   };
 }
 
-
-
 export function postAnswer(quizId, answerId) {
   const answerData = {
     quiz_id: quizId,
@@ -79,6 +77,7 @@ export function postAnswer(quizId, answerId) {
       });
   };
 }
+
 export function postQuiz() {
   return function (dispatch) {
     axios.post('http://localhost:9000/api/quiz/new', quizData)
