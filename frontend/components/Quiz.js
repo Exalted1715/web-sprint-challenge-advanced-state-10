@@ -41,7 +41,7 @@ function Quiz(props) {
             >
               {answer.text}
               <button onClick={() => handleSelectAnswer(answer.answer_id)}>
-                {props.selectedAnswer === answer.answer_id ? 'Selected' : 'Select'}
+                {props.selectedAnswer === answer.answer_id ? 'SELECTED' : 'Select'}
               </button>
             </div>
           ))}
