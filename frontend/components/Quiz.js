@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { fetchQuiz, setSelectedAnswer, postAnswer } from '../state/action-creators'; // Import postAnswer action creator
+
 function Quiz(props) {
   useEffect(() => {
     props.fetchQuiz();
@@ -14,6 +15,13 @@ function Quiz(props) {
     } else {
       console.error('Selected answer or quiz ID is missing.');
     }
+  };
+
+  const [buttonText, setButtonText] = useState('Select');
+
+  const handleSelectAnswer = (answerId) => {
+    props.setSelectedAnswer(answerId);
+    setButtonText('Selected');
   };
 
   // Check if a selected answer exists
@@ -32,8 +40,8 @@ function Quiz(props) {
               key={index}
             >
               {answer.text}
-              <button onClick={() => props.setSelectedAnswer(answer.answer_id)}>
-                Select
+              <button onClick={() => handleSelectAnswer(answer.answer_id)}>
+                {props.selectedAnswer === answer.answer_id ? 'Selected' : 'Select'}
               </button>
             </div>
           ))}
