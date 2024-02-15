@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
-import { MOVE_CLOCKWISE, MOVE_COUNTERCLOCKWISE, SET_QUIZ_INTO_STATE, SET_SELECTED_ANSWER } from './action-types';
+import { MOVE_CLOCKWISE, MOVE_COUNTERCLOCKWISE, SET_QUIZ_INTO_STATE, 
+  SET_SELECTED_ANSWER,  } from './action-types';
 
 const initialWheelState = {
   cogs: [

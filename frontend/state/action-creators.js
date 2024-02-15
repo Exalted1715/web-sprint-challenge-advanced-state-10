@@ -10,7 +10,8 @@ import {
   FETCH_QUIZ_SUCCESS,
   POST_ANSWER_SUCCESS,
   POST_QUIZ_SUCCESS,
-  SET_ERROR_MESSAGE
+  SET_ERROR_MESSAGE,
+  
 } from './action-types';
 
 export function moveClockwise() {

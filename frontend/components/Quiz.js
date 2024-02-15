@@ -9,8 +9,8 @@ function Quiz(props) {
 
   const handleSubmitAnswer = () => {
     const { quiz, selectedAnswer } = props;
-    console.log('Selected Answer:', selectedAnswer);
-    console.log('Quiz:', quiz);
+   // console.log('Selected Answer:', selectedAnswer);
+   // console.log('Quiz:', quiz);
     
     if (selectedAnswer && quiz && quiz.quiz_id) {
       props.postAnswer(quiz.quiz_id, selectedAnswer);

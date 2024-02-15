@@ -2,6 +2,8 @@
 import react from "react"
 import {connect} from 'react-redux'
 
+
+
 export const MOVE_CLOCKWISE = 'MOVE_CLOCKWISE'
 export const MOVE_COUNTERCLOCKWISE = 'MOVE_COUNTERCLOCKWISE'
 export const SET_QUIZ_INTO_STATE = 'SET_QUIZ_INTO_STATE'
