@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import { MOVE_CLOCKWISE, MOVE_COUNTERCLOCKWISE, SET_QUIZ_INTO_STATE, 
-  SET_SELECTED_ANSWER, INPUT_CHANGE  } from './action-types';
+  SET_SELECTED_ANSWER, INPUT_CHANGE, SET_INFO_MESSAGE, SET_ERROR_MESSAGE  } from './action-types';
 
 const initialWheelState = {
   cogs: [
@@ -88,7 +88,13 @@ function selectedAnswer(state = initialSelectedAnswerState, action) {
 
 const initialMessageState = ''
 function infoMessage(state = initialMessageState, action) {
-  return state
+  switch (action.type) {
+    case SET_INFO_MESSAGE:
+    case SET_ERROR_MESSAGE:
+      return action.payload; // Update the message state based on the action payload
+    default:
+      return state; // Return the current state for other actions
+  }
 }
 
 const initialFormState = {
