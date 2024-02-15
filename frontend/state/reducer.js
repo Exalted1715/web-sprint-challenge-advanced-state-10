@@ -31,23 +31,34 @@ function wheel(state = initialWheelState, action) {
 }
 
 function rotateCogsClockwise(cogs) {
-  const activeIndex = cogs.findIndex(cog => cog.active);
-  const nextIndex = (activeIndex + 1) % cogs.length;
-  const updatedCogs = cogs.map((cog, index) => ({
-    ...cog,
-    active: index === nextIndex
-  }));
+  const updatedCogs = [...cogs]; // Create a copy of the cogs array
+
+  // Rotate the cogs clockwise
+  const lastCog = updatedCogs.pop(); // Remove the last cog
+  updatedCogs.unshift(lastCog); // Add it to the beginning
+
+  // Update the 'active' property based on the position of 'B'
+  const bIndex = updatedCogs.findIndex(cog => cog.value === 'B');
+  updatedCogs.forEach((cog, index) => {
+    cog.active = index === bIndex;
+  });
+
   return updatedCogs;
 }
 
-// Helper function to rotate cogs counterclockwise
 function rotateCogsCounterClockwise(cogs) {
-  const activeIndex = cogs.findIndex(cog => cog.active);
-  const prevIndex = (activeIndex - 1 + cogs.length) % cogs.length;
-  const updatedCogs = cogs.map((cog, index) => ({
-    ...cog,
-    active: index === prevIndex
-  }));
+  const updatedCogs = [...cogs]; // Create a copy of the cogs array
+
+  // Rotate the cogs counterclockwise
+  const firstCog = updatedCogs.shift(); // Remove the first cog
+  updatedCogs.push(firstCog); // Add it to the end
+
+  // Update the 'active' property based on the position of 'B'
+  const bIndex = updatedCogs.findIndex(cog => cog.value === 'B');
+  updatedCogs.forEach((cog, index) => {
+    cog.active = index === bIndex;
+  });
+
   return updatedCogs;
 }
 

@@ -7,7 +7,7 @@ function Wheel(props) {
     <div id="wrapper">
       <div id="wheel">
         {props.wheel.cogs.map((cog, index) => (
-          <div key={index} className={`cog ${cog.active ? 'active' : ''}`} style={{ "--i": index }}>{cog.value}</div>
+          <div key={index} className={`cog ${cog.active ? 'active' : ''}`} style={{ "--i": index }}>{cog.active && cog.value}</div>
         ))}
       </div>
       <div id="keypad">
