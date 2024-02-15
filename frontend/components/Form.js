@@ -7,7 +7,7 @@ export function Form(props) {
 
   const onChange = (evt) => {
     const { id, value } = evt.target;
-    props.inputChange(id, value);
+    props.inputChange(id, value); // Dispatch action to update the Redux store
   };
 
   const onSubmit = (evt) => {
@@ -21,7 +21,7 @@ export function Form(props) {
       <input maxLength={50} onChange={onChange} id="newQuestion" placeholder="Enter question" value={newQuestion} />
       <input maxLength={50} onChange={onChange} id="newTrueAnswer" placeholder="Enter true answer" value={newTrueAnswer} />
       <input maxLength={50} onChange={onChange} id="newFalseAnswer" placeholder="Enter false answer" value={newFalseAnswer} />
-      <button id="submitNewQuizBtn" type="submit">Submit new quiz</button>
+      <button id="submitNewQuizBtn" type="submit" disabled={!newQuestion || !newTrueAnswer || !newFalseAnswer}>Submit new quiz</button>
     </form>
   );
 }

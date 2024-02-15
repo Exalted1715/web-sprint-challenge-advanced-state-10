@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import { MOVE_CLOCKWISE, MOVE_COUNTERCLOCKWISE, SET_QUIZ_INTO_STATE, 
-  SET_SELECTED_ANSWER,  } from './action-types';
+  SET_SELECTED_ANSWER, INPUT_CHANGE  } from './action-types';
 
 const initialWheelState = {
   cogs: [
@@ -97,7 +97,14 @@ const initialFormState = {
   newFalseAnswer: '',
 }
 function form(state = initialFormState, action) {
-  return state
+  switch (action.type) {
+    case INPUT_CHANGE:
+      return {
+        ...state,
+        [action.payload.fieldName]: action.payload.value,
+      };
+    default:
+      return state;
+  }
 }
-
 export default combineReducers({ wheel, quiz, selectedAnswer, infoMessage, form })
