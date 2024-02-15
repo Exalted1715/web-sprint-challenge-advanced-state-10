@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { fetchQuiz, setSelectedAnswer, postAnswer } from '../state/action-creators'; // Import postAnswer action creator
-
 function Quiz(props) {
   useEffect(() => {
     props.fetchQuiz();
@@ -9,15 +8,16 @@ function Quiz(props) {
 
   const handleSubmitAnswer = () => {
     const { quiz, selectedAnswer } = props;
-   // console.log('Selected Answer:', selectedAnswer);
-   // console.log('Quiz:', quiz);
-    
+
     if (selectedAnswer && quiz && quiz.quiz_id) {
       props.postAnswer(quiz.quiz_id, selectedAnswer);
     } else {
       console.error('Selected answer or quiz ID is missing.');
     }
   };
+
+  // Check if a selected answer exists
+  const isAnswerSelected = props.selectedAnswer !== null;
 
   return (
     <div id="wrapper">
@@ -38,7 +38,12 @@ function Quiz(props) {
             </div>
           ))}
       </div>
-      <button id="submitAnswerBtn" onClick={handleSubmitAnswer}>
+      {/* Disable the button if no answer is selected */}
+      <button
+        id="submitAnswerBtn"
+        onClick={handleSubmitAnswer}
+        disabled={!isAnswerSelected}
+      >
         Submit answer
       </button>
     </div>
