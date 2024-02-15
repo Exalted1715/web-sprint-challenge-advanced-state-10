@@ -57,13 +57,20 @@ export function fetchQuiz() {
   };
 }
 
-export function postAnswer() {
-  return function (dispatch) {
+
+
+export function postAnswer(quizId, answerId) {
+  const answerData = {
+    quiz_id: quizId,
+    answer_id: answerId
+  };
+
+  return function(dispatch) {
     axios.post('http://localhost:9000/api/quiz/answer', answerData)
       .then(response => {
         dispatch({ type: POST_ANSWER_SUCCESS });
         dispatch(setInfoMessage(response.data.message));
-        dispatch(fetchQuiz());
+        dispatch(fetchQuiz()); // Assuming you want to fetch the next quiz after submitting the answer
       })
       .catch(error => {
         dispatch({ type: SET_ERROR_MESSAGE, payload: 'Failed to post answer.' });
@@ -71,7 +78,6 @@ export function postAnswer() {
       });
   };
 }
-
 export function postQuiz() {
   return function (dispatch) {
     axios.post('http://localhost:9000/api/quiz/new', quizData)

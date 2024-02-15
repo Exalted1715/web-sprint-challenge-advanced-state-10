@@ -1,32 +1,46 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { fetchQuiz, setSelectedAnswer, } from '../state/action-creators';
+import { fetchQuiz, setSelectedAnswer, postAnswer } from '../state/action-creators'; // Import postAnswer action creator
 
 function Quiz(props) {
   useEffect(() => {
     props.fetchQuiz();
   }, []);
 
+  const handleSubmitAnswer = () => {
+    const { quiz, selectedAnswer } = props;
+    console.log('Selected Answer:', selectedAnswer);
+    console.log('Quiz:', quiz);
+    
+    if (selectedAnswer && quiz && quiz.quiz_id) {
+      props.postAnswer(quiz.quiz_id, selectedAnswer);
+    } else {
+      console.error('Selected answer or quiz ID is missing.');
+    }
+  };
+
   return (
     <div id="wrapper">
       <h2>{props.quiz.question}</h2>
       <div id="quizAnswers">
-  {props.quiz.answers &&
-    props.quiz.answers.map((answer, index) => (
-      <div
-        className={`answer ${
-          props.selectedAnswer === answer.answer_id ? 'selected' : ''
-        }`}
-        key={index}
-      >
-        {answer.text} {/* Render the text property of the answer object */}
-        <button onClick={() => props.setSelectedAnswer(answer.answer_id)}>
-          Select
-        </button>
+        {props.quiz.answers &&
+          props.quiz.answers.map((answer, index) => (
+            <div
+              className={`answer ${
+                props.selectedAnswer === answer.answer_id ? 'selected' : ''
+              }`}
+              key={index}
+            >
+              {answer.text}
+              <button onClick={() => props.setSelectedAnswer(answer.answer_id)}>
+                Select
+              </button>
+            </div>
+          ))}
       </div>
-    ))}
-</div>
-      <button id="submitAnswerBtn">Submit answer</button>
+      <button id="submitAnswerBtn" onClick={handleSubmitAnswer}>
+        Submit answer
+      </button>
     </div>
   );
 }
@@ -39,6 +53,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = {
   fetchQuiz,
   setSelectedAnswer,
+  postAnswer, // Add postAnswer to mapDispatchToProps
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Quiz);
