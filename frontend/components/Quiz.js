@@ -27,7 +27,7 @@ function Quiz(props) {
           props.quiz.answers.map((answer, index) => (
             <div
               className={`answer ${
-                props.selectedAnswer === answer.answer_id ? 'SELECTED' : ''
+                props.selectedAnswer === answer.answer_id ? 'selected' : ''
               }`}
               key={index}
             >
