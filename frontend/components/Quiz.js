@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { fetchQuiz, setSelectedAnswer, postAnswer } from '../state/action-creators'; // Import postAnswer action creator
+import { fetchQuiz, setSelectedAnswer, postAnswer } from '../state/action-creators';
 
 function Quiz(props) {
   useEffect(() => {
@@ -17,11 +17,8 @@ function Quiz(props) {
     }
   };
 
-  const [buttonText, setButtonText] = useState('Select');
-
   const handleSelectAnswer = (answerId) => {
     props.setSelectedAnswer(answerId);
-    setButtonText('Selected');
   };
 
   // Check if a selected answer exists
@@ -66,7 +63,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = {
   fetchQuiz,
   setSelectedAnswer,
-  postAnswer, // Add postAnswer to mapDispatchToProps
+  postAnswer,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Quiz);

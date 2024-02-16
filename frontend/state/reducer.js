@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import { MOVE_CLOCKWISE, MOVE_COUNTERCLOCKWISE, SET_QUIZ_INTO_STATE, 
-  SET_SELECTED_ANSWER, INPUT_CHANGE, SET_INFO_MESSAGE, SET_ERROR_MESSAGE  } from './action-types';
+  SET_SELECTED_ANSWER, INPUT_CHANGE, SET_INFO_MESSAGE, SET_ERROR_MESSAGE, FETCH_QUIZ_SUCCESS, RESET_FORM, POST_QUIZ_SUCCESS } from './action-types';
 
 const initialWheelState = {
   cogs: [
@@ -31,11 +31,11 @@ function wheel(state = initialWheelState, action) {
 }
 
 function rotateCogsClockwise(cogs) {
-  const updatedCogs = [...cogs]; // Create a copy of the cogs array
+  const updatedCogs = [...cogs]; 
 
   // Rotate the cogs clockwise
-  const lastCog = updatedCogs.pop(); // Remove the last cog
-  updatedCogs.unshift(lastCog); // Add it to the beginning
+  const lastCog = updatedCogs.pop(); 
+  updatedCogs.unshift(lastCog)
 
   // Update the 'active' property based on the position of 'B'
   const bIndex = updatedCogs.findIndex(cog => cog.value === 'B');
@@ -86,31 +86,40 @@ function selectedAnswer(state = initialSelectedAnswerState, action) {
   }
 }
 
-const initialMessageState = null; // Initialize to null instead of an empty string
+const initialMessageState = null;
+
 function infoMessage(state = initialMessageState, action) {
   switch (action.type) {
     case SET_INFO_MESSAGE:
     case SET_ERROR_MESSAGE:
-      return action.payload // Update the message state based on the action payload
+      return action.payload;
+    case FETCH_QUIZ_SUCCESS:
+      return null; // Reset the message after successfully fetching a quiz
     default:
-      return state; // Return the current state for other actions
+      return state;
   }
 }
+
 
 const initialFormState = {
   newQuestion: '',
   newTrueAnswer: '',
   newFalseAnswer: '',
-}
+};
+
 function form(state = initialFormState, action) {
   switch (action.type) {
-    case INPUT_CHANGE:
-      return {
-        ...state,
-        [action.payload.fieldName]: action.payload.value,
-      };
-    default:
-      return state;
+      case INPUT_CHANGE:
+          return {
+              ...state,
+              [action.payload.fieldName]: action.payload.value,
+          };
+      case RESET_FORM:
+          return initialFormState; // Reset form state to initial state
+      case POST_QUIZ_SUCCESS:
+          return initialFormState; // Reset form state after successfully posting quiz
+      default:
+          return state;
   }
 }
 export default combineReducers({ wheel, quiz, selectedAnswer, infoMessage, form })

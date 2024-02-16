@@ -13,7 +13,12 @@ export function Form(props) {
 
     const onSubmit = (evt) => {
         evt.preventDefault();
-        props.postQuiz({ question: newQuestion, trueAnswer: newTrueAnswer, falseAnswer: newFalseAnswer });
+        const quizData = {
+            newQuestion,
+            newTrueAnswer,
+            newFalseAnswer
+        };
+        props.postQuiz(quizData); // Dispatch postQuiz action with quizData
     };
 
     // Check if all inputs have values more than one character in length after trimming

@@ -80,17 +80,18 @@ export function postAnswer(quizId, answerId) {
   };
 }
 
-export function postQuiz() {
-  return function (dispatch) {
+export function postQuiz(quizData) {
+  return function(dispatch) {
     axios.post('http://localhost:9000/api/quiz/new', quizData)
       .then(response => {
         dispatch({ type: POST_QUIZ_SUCCESS });
-        dispatch(setInfoMessage(response.data.message));
-        dispatch(resetForm());
+        dispatch(setInfoMessage(response.data.message)); // Dispatch a success message if needed
+        dispatch(resetForm()); // Reset the form after successful quiz submission
       })
       .catch(error => {
         dispatch({ type: SET_ERROR_MESSAGE, payload: 'Failed to post quiz.' });
         console.error('Failed to post quiz:', error);
+        // You can dispatch additional actions here for error handling
       });
   };
 }

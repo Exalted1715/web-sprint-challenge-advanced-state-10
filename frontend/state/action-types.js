@@ -1,6 +1,5 @@
 // ❗ You don't need to add extra action types to achieve MVP
-import react from "react"
-import {connect} from 'react-redux'
+
 
 
 
