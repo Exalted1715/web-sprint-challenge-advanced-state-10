@@ -65,18 +65,27 @@ export function postAnswer(quizId, answerId) {
   };
 
   return function(dispatch) {
-    axios.post('http://localhost:9000/api/quiz/answer', answerData)
-      .then(response => {
-        console.log('Response from server:', response);
-        dispatch({ type: POST_ANSWER_SUCCESS });
-        dispatch(setInfoMessage(response.data.message));
-        console.log(response.data.message)
-        dispatch(fetchQuiz()); // Assuming you want to fetch the next quiz after submitting the answer
-      })
-      .catch(error => {
-        dispatch({ type: SET_ERROR_MESSAGE, payload: 'Failed to post answer.' });
-        console.error('Failed to post answer:', error);
-      });
+    // Return a new promise
+    return new Promise((resolve, reject) => {
+      axios.post('http://localhost:9000/api/quiz/answer', answerData)
+        .then(response => {
+          console.log('Response from server:', response);
+          dispatch({ type: POST_ANSWER_SUCCESS });
+          dispatch(setInfoMessage(response.data.message));
+          console.log(response.data.message)
+          //dispatch(fetchQuiz()); // Assuming you want to fetch the next quiz after submitting the answer
+
+          // Resolve the promise with the response
+          resolve(response);
+        })
+        .catch(error => {
+          dispatch({ type: SET_ERROR_MESSAGE, payload: 'Failed to post answer.' });
+          console.error('Failed to post answer:', error);
+
+          // Reject the promise with the error
+          reject(error);
+        });
+    });
   };
 }
 

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 
 function Message(props) {
-  console.log(props.infoMessage)
+  console.log('Message:', props.infoMessage)
   return <div id="message">{props.infoMessage}</div>;
 }
 

@@ -7,15 +7,21 @@ function Quiz(props) {
     props.fetchQuiz();
   }, []);
 
-  const handleSubmitAnswer = () => {
+  function handleSubmitAnswer() {
     const { quiz, selectedAnswer } = props;
-
+  
     if (selectedAnswer && quiz && quiz.quiz_id) {
-      props.postAnswer(quiz.quiz_id, selectedAnswer);
+      props.postAnswer(quiz.quiz_id, selectedAnswer)
+        .then(response => {
+          if (response.data.correct === false) { // adjust this based on your server response
+            // If the answer is incorrect, dispatch the setInfoMessage action with the failure message
+            props.setInfoMessage('Your answer is incorrect. Please try again.');
+          }
+        });
     } else {
       console.error('Selected answer or quiz ID is missing.');
     }
-  };
+  }
 
   const handleSelectAnswer = (answerId) => {
     props.setSelectedAnswer(answerId);
