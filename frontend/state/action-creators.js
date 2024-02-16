@@ -75,7 +75,7 @@ export function postAnswer(quizId, answerId) {
           console.log(response.data.message)
           setTimeout(() =>{
             dispatch(fetchQuiz())
-          },500); // Assuming you want to fetch the next quiz after submitting the answer
+          },100); // Assuming you want to fetch the next quiz after submitting the answer
 
           // Resolve the promise with the response
           resolve(response);
