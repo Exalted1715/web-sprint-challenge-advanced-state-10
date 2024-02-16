@@ -86,12 +86,12 @@ function selectedAnswer(state = initialSelectedAnswerState, action) {
   }
 }
 
-const initialMessageState = ''
+const initialMessageState = null; // Initialize to null instead of an empty string
 function infoMessage(state = initialMessageState, action) {
   switch (action.type) {
     case SET_INFO_MESSAGE:
     case SET_ERROR_MESSAGE:
-      return action.payload; // Update the message state based on the action payload
+      return action.payload // Update the message state based on the action payload
     default:
       return state; // Return the current state for other actions
   }

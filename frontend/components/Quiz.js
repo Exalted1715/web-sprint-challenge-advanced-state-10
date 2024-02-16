@@ -9,7 +9,7 @@ function Quiz(props) {
 
   const handleSubmitAnswer = () => {
     const { quiz, selectedAnswer } = props;
-console.log(props)
+
     if (selectedAnswer && quiz && quiz.quiz_id) {
       props.postAnswer(quiz.quiz_id, selectedAnswer);
     } else {
