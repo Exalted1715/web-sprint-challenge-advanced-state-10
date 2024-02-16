@@ -73,7 +73,9 @@ export function postAnswer(quizId, answerId) {
           dispatch({ type: POST_ANSWER_SUCCESS });
           dispatch(setInfoMessage(response.data.message));
           console.log(response.data.message)
-          //dispatch(fetchQuiz()); // Assuming you want to fetch the next quiz after submitting the answer
+          setTimeout(() =>{
+            dispatch(fetchQuiz())
+          },1000); // Assuming you want to fetch the next quiz after submitting the answer
 
           // Resolve the promise with the response
           resolve(response);
